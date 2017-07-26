@@ -11,3 +11,6 @@ def index(request):
 def data(request):
     return render(request, 'reservatie_open_cv/data.html', {'var_test': "var_test"})
 
+
+def loading(request):
+    return render(request, 'reservatie_open_cv/loading.html')
