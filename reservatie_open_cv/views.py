@@ -9,6 +9,12 @@ def index(request):
 
 
 def data(request):
+    if request.method == "GET":
+        return render(request, 'reservatie_open_cv/data.html', {'var_test': "var_test"})
+    if request.method == "POST":
+        print(request.POST)
+        # TODO do something
+        pass
     return render(request, 'reservatie_open_cv/data.html', {'var_test': "var_test"})
 
 
@@ -19,4 +25,3 @@ def loading(request):
 def confirmation(request):
     name = "Adriaan Glibert"
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name})
-
