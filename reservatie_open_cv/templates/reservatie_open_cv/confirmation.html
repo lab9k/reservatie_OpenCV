@@ -21,12 +21,12 @@
     top: 13px;">
             <div class="card">
                 <div class="card-image"><img src="https://www.equifax.com.au/sites/default/files/styles/image_1119x999/public/field/image/identity-watch-identity-theft_0.jpg?itok=TKmb0wNq"> <span class="card-title">Bevestig uw identiteit.</span> <a
-                        href="data.html" class="btn-floating btn-large halfway-fab waves-effect waves-light green"><i
+                        href="{% url 'main:data' %}" class="btn-floating btn-large halfway-fab waves-effect waves-light green"><i
                         class="material-icons">check</i></a></div>
                 <div class="card-content">
-                    <p class="left-align" style="font-size: 2em;">Adriaan Glibert
+                    <p class="left-align" style="font-size: 2em;">{{ name }}
                     </p>
-                    <a class="waves-effect waves-teal">Dit klopt niet, ga terug.</a>
+                    <a class="waves-effect waves-teal" href="{% url 'main:loading' %}">Dit klopt niet, probeer opnieuw.</a>
                 </div>
             </div>
         </div>

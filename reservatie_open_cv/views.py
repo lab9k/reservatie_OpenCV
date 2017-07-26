@@ -17,5 +17,6 @@ def loading(request):
 
 
 def confirmation(request):
-    return render(request, 'reservatie_open_cv/confirmation.html')
+    name = "Adriaan Glibert"
+    return render(request, 'reservatie_open_cv/confirmation.html', {'name': name})
 
