@@ -96,4 +96,5 @@ ENV/
 
 lab9k/settings_secret.py
 *.iml
-.idea/workspace.xml
+reservatie_open_cv/.idea/misc.xml
+*.xml
