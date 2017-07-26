@@ -9,4 +9,8 @@ def index(request):
 
 
 def data(request):
-    return render(request, 'reservatie_open_cv/data.html', {'var_test': "var_test"})
+    if request.method == "GET":
+        return render(request, 'reservatie_open_cv/data.html', {'var_test': "var_test"})
+    if request.method == "POST":
+        # TODO do something
+        pass
