@@ -23,4 +23,3 @@ def loading(request):
 
 def confirmation(request):
     return render(request, 'reservatie_open_cv/confirmation.html')
-
