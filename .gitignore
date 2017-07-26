@@ -96,3 +96,4 @@ ENV/
 
 lab9k/settings_secret.py
 *.iml
+.idea/workspace.xml
