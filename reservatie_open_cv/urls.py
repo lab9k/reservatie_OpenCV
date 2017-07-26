@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'data/', views.data, name='data'),
     url(r'loading/', views.loading, name='loading'),
-    url(r'confirmation/',views.confirmation, name='confirmation')
+    url(r'confirmation/',views.confirmation, name='confirmation'),
+    url(r'error/',views.error, name='error')
 ]
