@@ -95,6 +95,4 @@ ENV/
 .ropeproject
 
 lab9k/settings_secret.py
-*.iml
-reservatie_open_cv/.idea/misc.xml
-*.xml
+.idea/
