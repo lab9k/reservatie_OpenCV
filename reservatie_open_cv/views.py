@@ -12,6 +12,7 @@ def data(request):
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/data.html', {'var_test': "var_test"})
     if request.method == "POST":
+        print(request.POST)
         # TODO do something
         pass
     return render(request, 'reservatie_open_cv/data.html', {'var_test': "var_test"})
