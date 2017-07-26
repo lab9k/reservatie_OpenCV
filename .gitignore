@@ -96,7 +96,3 @@ ENV/
 
 lab9k/settings_secret.py
 .idea/
-.idea/lab9k.iml
-*.xml
-.idea/lab9k.iml
-*.iml
