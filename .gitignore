@@ -2,7 +2,6 @@
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
 *$py.class
 
 # C extensions
@@ -95,5 +94,4 @@ ENV/
 # Rope project settings
 .ropeproject
 
-.idea
 lab9k/settings_secret.py
