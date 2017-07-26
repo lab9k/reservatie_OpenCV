@@ -20,3 +20,7 @@ def data(request):
 def loading(request):
     return render(request, 'reservatie_open_cv/loading.html')
 
+
+def confirmation(request):
+    return render(request, 'reservatie_open_cv/confirmation.html')
+
