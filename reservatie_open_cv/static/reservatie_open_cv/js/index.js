@@ -8,10 +8,8 @@ app.controller('dateTimeCtrl', function ($scope) {
     ctrl.selected_date.setMinutes(30);
 
     ctrl.updateDate = function (newdate) {
-
-        // Geef hier de datum door aan de andere backend!!!!
-        //TODO update invisible form, when submit is pressed, submit the form
         console.log(newdate);
+        $('#date_value').val(newdate);
     };
 });
 
@@ -534,3 +532,4 @@ app.directive('datePicker', function ($timeout, $window) {
         }
     };
 });
+

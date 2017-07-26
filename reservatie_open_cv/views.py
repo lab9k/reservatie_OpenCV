@@ -11,9 +11,8 @@ def data(request):
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/data.html')
     if request.method == "POST":
-        print(request.POST)
-        # TODO do something
-        pass
+        time_data = request.POST.get('date_value')
+        return render(request, 'reservatie_open_cv/data.html', {'selected_date': time_data})
     return render(request, 'reservatie_open_cv/data.html')
 
 

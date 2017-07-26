@@ -51,7 +51,7 @@
                         {% endverbatim angular %}
                         <div class="goforward" ng-click="moveForward()" ng-if="pickdate">
                             <svg width="30" height="30">
-                                <path fill="none" stroke="#0DAD83" stroke-width="3" d="M11,6 l9,9 l-9,9"/>
+                                <path fill="none" stroke="#0DAD83" stroke-width="3" d="M11,6 l9,9 l-9,9"></path>
                             </svg>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                                     <div class="display-time">
                                         <div class="decrement-time" ng-click="adjustTime('decrease')">
                                             <svg width="24" height="24">
-                                                <path stroke="white" stroke-width="2" d="M8,12 h8"/>
+                                                <path stroke="white" stroke-width="2" d="M8,12 h8"></path>
                                             </svg>
                                         </div>
                                         <div class="time" ng-class="{'time-active': edittime.active}">
@@ -115,11 +115,16 @@
                         </div>
                     </div>
                 {% endverbatim angular %}
-                <div class="buttons-container">
-                    <div class="cancel-button"><a class="waves-effect waves-teal btn-flat">Cancel</a></div>
-                    <div class="save-button"><a class="waves-effect waves-light btn">Save</a></div>
-                </div>
-
+                <form method="post" action="{% url 'main:data' %}">
+                    {% csrf_token %}
+                    <input id="date_value" name="date_value" type="hidden">
+                    <div class="buttons-container">
+                        <div class="cancel-button"><a class="waves-effect waves-teal btn-flat">Cancel</a></div>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
