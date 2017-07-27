@@ -34,7 +34,7 @@ def confirmation(request):
     file = open("founded.txt", "r")
     name = file.read()
 
-    # hier nog de zaal dan definitief boeken + de zaal ook tonen!
+    #TODO hier nog de zaal dan definitief boeken + de zaal ook tonen!
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name})
 
 
@@ -49,10 +49,14 @@ def noRoom(request):
 
 
 @csrf_exempt
+def noPerson(request):
+    return render(request, 'reservatie_open_cv/noPerson.html')
+
+
+@csrf_exempt
 def camerafunction(request):
     # do something with the your data
-    datacam = face_detection.take_picture()
-    # datacam = camera.testfunctie()
+    #datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
     datacam = face_detection.take_picture()
 
@@ -68,9 +72,13 @@ def facerec(request):
     h = request.POST.get('Coords[h]')
     w = request.POST.get('Coords[w]')
     name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
-    ret = {'naam': name}
-    print(name)
-    mfile = open("founded.txt", "w")
-    mfile.write(name)
-    mfile.close()
-    return JsonResponse(ret)
+    if(name == "Unknown"):
+        return render(request, 'reservatie_open_cv/noPerson.html')
+    else:
+        ret = {'naam': name}
+        print(request.POST)
+        file = open("founded.txt", "w")
+        file.write(name)
+        file.close()
+        return JsonResponse(ret)
+

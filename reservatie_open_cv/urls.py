@@ -10,5 +10,6 @@ urlpatterns = [
     url(r'error/', views.error, name='error'),
     url(r'camera/', views.camerafunction, name='camera'),
     url(r'facerec/', views.facerec,name='facerec'),
-    url(r'noRoom/', views.noRoom, name='noRoom')
+    url(r'noRoom/', views.noRoom, name='noRoom'),
+    url(r'noPerson/', views.noPerson, name='noPerson')
 ]
