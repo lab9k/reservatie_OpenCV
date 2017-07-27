@@ -62,12 +62,16 @@ def camerafunction(request):
 @csrf_exempt
 def facerec(request):
     # do something with the your data
-    print(request.POST)
+
     x = request.POST.get('Coords[x]')
     y = request.POST.get('Coords[y]')
     h = request.POST.get('Coords[h]')
     w = request.POST.get('Coords[w]')
     name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
     ret = {'naam': name}
+    print(request.POST)
+    file = open("founded.txt", "w")
+    file.write(name)
+    file.close()
     return JsonResponse(ret)
 
