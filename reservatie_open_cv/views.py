@@ -36,7 +36,8 @@ def error(request):
 @csrf_exempt
 def camerafunction(request):
     # do something with the your data
-    datacam = face_detection.take_picture();
+    # {Time:string,success:string,(int,int,int,int)}
+    datacam = face_detection.take_picture()
 
     # just return a JsonResponse
     return JsonResponse(datacam)
@@ -46,6 +47,11 @@ def camerafunction(request):
 @csrf_exempt
 def facerec(request):
     # do something with the your data
-    name = recognize.recon(request.POST.get('Time'),request.POST.get('Coord'))
-    return JsonResponse(name)
-
+    print(request.POST)
+    x = request.POST.get('Coords[x]')
+    y = request.POST.get('Coords[y]')
+    h = request.POST.get('Coords[h]')
+    w = request.POST.get('Coords[w]')
+    name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
+    ret = {'naam': name}
+    return JsonResponse(ret)
