@@ -11,7 +11,7 @@ $.ajax({
                 type: "post",
                 url: "/facerec/",
                 success: function (dataFR) {
-                    //nog af te handelen data van functie!
+                    //TODO nog af te handelen data van functie!
                     window.location.assign("/confirmation/");
                 }
             });
