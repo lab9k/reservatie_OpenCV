@@ -71,10 +71,13 @@ def facerec(request):
     h = request.POST.get('Coords[h]')
     w = request.POST.get('Coords[w]')
     name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
-    ret = {'naam': name}
-    print(request.POST)
-    file = open("founded.txt", "w")
-    file.write(name)
-    file.close()
-    return JsonResponse(ret)
+    if(name == "Unknown"):
+        return render(request, 'reservatie_open_cv/noPerson.html')
+    else:
+        ret = {'naam': name}
+        print(request.POST)
+        file = open("founded.txt", "w")
+        file.write(name)
+        file.close()
+        return JsonResponse(ret)
 
