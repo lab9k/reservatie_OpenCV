@@ -4,8 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 import camera
 
 
-# Create your views here.
-
 def index(request):
     return render(request, 'reservatie_open_cv/index.html')
 
