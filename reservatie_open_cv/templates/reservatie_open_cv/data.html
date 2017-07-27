@@ -115,7 +115,7 @@
                         </div>
                     </div>
                 {% endverbatim angular %}
-                <form method="post" action="{% url 'main:data' %}">
+                <form method="post" action="{% url 'main:loading' %}">
                     {% csrf_token %}
                     <input id="date_value" name="date_value" type="hidden">
                     <div class="buttons-container">
