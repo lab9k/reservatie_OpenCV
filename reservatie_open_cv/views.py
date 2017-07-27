@@ -6,6 +6,7 @@ import check
 import recognize
 import face_detection
 
+
 def index(request):
     return render(request, 'reservatie_open_cv/index.html')
 
@@ -33,7 +34,7 @@ def confirmation(request):
     file = open("founded.txt", "r")
     name = file.read()
 
-    #hier nog de zaal dan definitief boeken + de zaal ook tonen!
+    # hier nog de zaal dan definitief boeken + de zaal ook tonen!
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name})
 
 
@@ -47,12 +48,11 @@ def noRoom(request):
     return render(request, 'reservatie_open_cv/noRooms.html')
 
 
-
 @csrf_exempt
 def camerafunction(request):
     # do something with the your data
     datacam = face_detection.take_picture()
-    #datacam = camera.testfunctie()
+    # datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
     datacam = face_detection.take_picture()
 
@@ -69,9 +69,8 @@ def facerec(request):
     w = request.POST.get('Coords[w]')
     name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
     ret = {'naam': name}
-    print(request.POST)
-    file = open("founded.txt", "w")
-    file.write(name)
-    file.close()
+    print(name)
+    mfile = open("founded.txt", "w")
+    mfile.write(name)
+    mfile.close()
     return JsonResponse(ret)
-
