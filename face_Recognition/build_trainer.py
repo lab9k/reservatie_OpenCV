@@ -29,6 +29,6 @@ def build_trainer_yml(path):
 
 
 # path aanpassen
-faces, Ids = build_trainer_yml("Testimg")
+faces, Ids = build_trainer_yml("dataImages")
 recognizer.train(faces, np.array(Ids))
 recognizer.save('trainer.yml')
