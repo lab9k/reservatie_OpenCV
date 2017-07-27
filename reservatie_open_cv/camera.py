@@ -1,5 +1,3 @@
-
 def testfunctie():
-    dict = {'Success': 'true', 'Image': 'tralala'}
-    return dict
-
+    mdict = {'Success': 'true', 'Image': 'tralala'}
+    return mdict

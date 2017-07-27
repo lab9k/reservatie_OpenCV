@@ -39,4 +39,4 @@ def camerafunction(request):
 
     # just return a JsonResponse
     return JsonResponse(datacam)
-    #return render(request, 'reservatie_open_cv/error.html')
+    # return render(request, 'reservatie_open_cv/error.html')
