@@ -13,7 +13,6 @@ $.ajax({
                 data: dataCam,
                 success: function (dataFR) {
                     window.location.assign("/confirmation/");
-                    //nog naam instellen
                 }
             });
 

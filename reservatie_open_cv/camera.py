@@ -1,3 +1,3 @@
 def testfunctie():
-    mdict = {'Success': 'true', 'Image': 'tralala'}
+    mdict = {'Success': 'True', 'Coord': 'tralala', 'Time':'0h'}
     return mdict
