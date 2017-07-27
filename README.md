@@ -23,7 +23,7 @@
 
 1. Run the server
 
-    for more info on this command, use the help argument on manage.py.
+    for more info on this command, use the help argument on manage.py. or visit [the Django documentation](https://docs.djangoproject.com/en/1.11/ref/django-admin/)
 
     default port is 8000
 
