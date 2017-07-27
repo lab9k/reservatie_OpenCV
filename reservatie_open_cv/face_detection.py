@@ -1,9 +1,9 @@
-iimport cv2
-from picamera import PiCamera
-from time import sleep
-from datetime import datetime
 import os
-import recognize
+from datetime import datetime
+from time import sleep
+
+import cv2
+from picamera import PiCamera
 
 
 # neemt een foto
@@ -36,8 +36,10 @@ def take_picture():
     if len(faces) != 0:
         # om het zo snel mogelijk te maken stuur ik de data van het gezicht
         # door aangezien dit algoritme op 320x240 3 sec nodig heeft
-                return str(now), True, faces[0]
-    return "no", False, legetupel
+        mdict = {'Time': str(now), 'Success': 'True', 'Coord': faces[0]}
+                return mdict
+    mdict = {'Time': str(now), 'Success': 'False', 'Coord': ()}
+    return mdict
 
 
-recognize.recon(take_picture())
+#face_Recognition.recognize.recon(take_picture())

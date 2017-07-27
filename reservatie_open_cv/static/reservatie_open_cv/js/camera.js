@@ -4,15 +4,16 @@ $.ajax({
     success: function(dataCam) {
         //ajax call --> calls the camera.py script to take a picture and search a face in it
         //result is something like : {success: true, image: img}
-        if(dataCam.Success === "true"){
+        if(dataCam.Success === "True"){
            //photo has been made
            document.getElementById("textCam").innerHTML = "De foto werd genomen. We zoeken naar uw gegevens.";
           $.ajax({
                 type: "post",
                 url: "/facerec/",
+                data: dataCam,
                 success: function (dataFR) {
-                    //TODO nog af te handelen data van functie!
                     window.location.assign("/confirmation/");
+                    //nog naam instellen
                 }
             });
 

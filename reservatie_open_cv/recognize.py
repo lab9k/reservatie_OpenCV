@@ -1,10 +1,10 @@
 import cv2
 
 
-def recon(tuple):
+def recon(now,tuple):
     # krijgen map locatie boolean en tupel met x y w h
-    now, bool, tupel = tuple
-    x, y, w, h = tupel
+
+    x, y, w, h = tuple
     # anders zou het crashen
     if bool:
         # maakt de facerecon aan
@@ -23,4 +23,4 @@ def recon(tuple):
             id_pers = "Jana"
         else:
             id_pers = "Unknown"
-        print id_pers
+        return id_pers

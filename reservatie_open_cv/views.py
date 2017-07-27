@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import camera
+import recognize
+import face_detection
 
 
 def index(request):
@@ -34,7 +36,7 @@ def error(request):
 @csrf_exempt
 def camerafunction(request):
     # do something with the your data
-    datacam = camera.testfunctie()
+    datacam = face_detection.take_picture();
 
     # just return a JsonResponse
     return JsonResponse(datacam)
@@ -44,7 +46,6 @@ def camerafunction(request):
 @csrf_exempt
 def facerec(request):
     # do something with the your data
-    datafr = camera.testfunctie()
-
-    return JsonResponse(datafr)
+    name = recognize.recon(request.POST.get('Time'),request.POST.get('Coord'))
+    return JsonResponse(name)
 
