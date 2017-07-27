@@ -26,6 +26,7 @@ def confirmation(request):
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name})
 
 
+@csrf_exempt
 def error(request):
     return render(request, 'reservatie_open_cv/error.html')
 
@@ -38,3 +39,12 @@ def camerafunction(request):
     # just return a JsonResponse
     return JsonResponse(datacam)
     # return render(request, 'reservatie_open_cv/error.html')
+
+
+@csrf_exempt
+def facerec(request):
+    # do something with the your data
+    datafr = camera.testfunctie()
+
+    return JsonResponse(datafr)
+
