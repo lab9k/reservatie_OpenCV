@@ -47,11 +47,14 @@ def noRoom(request):
     return render(request, 'reservatie_open_cv/noRooms.html')
 
 
+@csrf_exempt
+def noPerson(request):
+    return render(request, 'reservatie_open_cv/noPerson.html')
+
 
 @csrf_exempt
 def camerafunction(request):
     # do something with the your data
-    datacam = face_detection.take_picture()
     #datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
     datacam = face_detection.take_picture()
