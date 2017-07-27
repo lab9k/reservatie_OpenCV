@@ -53,17 +53,21 @@ def camerafunction(request):
     # do something with the your data
     datacam = face_detection.take_picture()
     #datacam = camera.testfunctie()
+    # {Time:string,success:string,(int,int,int,int)}
+    datacam = face_detection.take_picture()
 
     return JsonResponse(datacam)
 
 
 @csrf_exempt
 def facerec(request):
-    name = recognize.recon(request.POST.get('Time'), request.POST.get('Coord'))
-    #name = request.POST.get('Coord')
-    file = open("founded.txt", "w")
-    file.write(name)
-    file.close()
-
-    return JsonResponse(name,safe=False)
+    # do something with the your data
+    print(request.POST)
+    x = request.POST.get('Coords[x]')
+    y = request.POST.get('Coords[y]')
+    h = request.POST.get('Coords[h]')
+    w = request.POST.get('Coords[w]')
+    name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
+    ret = {'naam': name}
+    return JsonResponse(ret)
 

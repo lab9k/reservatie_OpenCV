@@ -1,13 +1,14 @@
 $.ajax({
     type: "POST",
     url: "/camera/",
-    success: function(dataCam) {
+    success: function (dataCam) {
         //ajax call --> calls the camera.py script to take a picture and search a face in it
         //result is something like : {success: true, image: img}
-        if(dataCam.Success === "True"){
-           //photo has been made
-           document.getElementById("textCam").innerHTML = "De foto werd genomen. We zoeken naar uw gegevens.";
-          $.ajax({
+        if (dataCam.Success === "True") {
+            //photo has been made
+            alert(JSON.stringify(dataCam));
+            document.getElementById("textCam").innerHTML = "De foto werd genomen. We zoeken naar uw gegevens.";
+            $.ajax({
                 type: "post",
                 url: "/facerec/",
                 data: dataCam,
@@ -23,7 +24,6 @@ $.ajax({
 
     }
 });
-
 
 
 function wait(ms) {
