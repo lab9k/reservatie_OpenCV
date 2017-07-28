@@ -55,8 +55,7 @@ def accept(request):
     # TODO hier nog zaal definitief boeken + mailen
     mailAddress = request.COOKIES.get('mail')
 
-    mailgun.send_async_message('postmaster@mail.lab9k.gent',mailAddress,'zaalboeking',"Tralala")
-
+    mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "Tralala")
 
     response = render(request, 'reservatie_open_cv/index.html')
     response.delete_cookie('datum')
@@ -88,7 +87,7 @@ def camerafunction(request):
     # datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
     datacam = face_detection.take_picture()
-    #datacam = camera.testfunctie()
+    # datacam = camera.testfunctie()
     return JsonResponse(datacam)
 
 
@@ -101,7 +100,7 @@ def facerec(request):
     h = request.POST.get('Coords[h]')
     w = request.POST.get('Coords[w]')
     name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
-    if(name == "Unknown"):
+    if name == "Unknown":
         return render(request, 'reservatie_open_cv/noPerson.html')
     else:
         ret = {'naam': name}
@@ -112,10 +111,3 @@ def facerec(request):
         response.set_cookie(key='naam', value=name)
         response.set_cookie(key='mail', value=mailaddress)
         return response
-
-
-
-
-
-
-
