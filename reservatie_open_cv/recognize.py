@@ -18,12 +18,13 @@
 #         # trainner)
 #         id_pers, conf = recognizer.predict(image[y:y + h, x:x + w])
 #         print(conf)
-#         # aanpassen als er een database bij komt
+#         # aanpassen !!!!!!!!!
 #         if conf > 50 and conf < 120:
 #                 conn = sqlite3.connect("db.sqlite3")
 #                 c = conn.cursor()
 #                 for per in c.execute('SELECT * FROM auth_user WHERE id=?', str(id_pref)):
 #                         name = per
+#                 conn.close()
 #         else:
 #                 name = "Unknown"
 #         return name
