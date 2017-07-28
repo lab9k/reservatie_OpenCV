@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import camera
 from datetime import datetime
 from subprocess import call
-from .models import Zaal, User
+from .models import Zaal, User, Reservatie
 import recognize
 import face_detection
 import json
@@ -33,7 +33,7 @@ def loading(request):
                 break
         response = render(request, 'reservatie_open_cv/loading.html')
         response.set_cookie(key='gekozen_zaal', value=gekozen_zaal)
-        response.set_cookie(key='datum', value=date)
+        response.set_cookie(key='datum', value=timestamp)
         return response
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/loading.html')
@@ -56,6 +56,14 @@ def accept(request):
     mailAddress = request.COOKIES.get('mail')
 
     mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "Tralala")
+
+    zaal = request.COOKIES.get('gekozen_zaal')
+    cookie_datum = request.COOKIES.get('datum')
+    date = datetime.fromtimestamp(cookie_datum / 1e3)
+
+    db_zaal = Zaal.objects.filter(naam=zaal).first()
+    reservatie = Reservatie(zaal=db_zaal, date=date)
+    reservatie.save()
 
     response = render(request, 'reservatie_open_cv/index.html')
     response.delete_cookie('datum')
