@@ -1,10 +1,11 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import camera
 from datetime import datetime
 from subprocess import call
-import check
+from .models import Zaal
 import recognize
 import face_detection
 
@@ -16,26 +17,23 @@ def index(request):
 def data(request):
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/data.html')
-    if request.method == "POST":
-        time_data = request.POST.get('date_value')
-
-        return render(request, 'reservatie_open_cv/loading.html', {'selected_date': time_data})
     return render(request, 'reservatie_open_cv/data.html')
 
 
 def loading(request):
-    # checking if there is some space left.
-    # yes: going to loading screen
-    # no: return to index with alert message that all spaces are already booked on that day
-    # TODO: ophalen uit de model en checken of er een zaal is of niet
-    freeroomname = "D1"
-    file = open("freeRoom.txt", "w")
-    file.write(freeroomname)
-    file.close()
-    if freeroomname:
+    if request.method == "POST":
+        timestamp = float(request.POST.get('date_value'))
+        date = datetime.fromtimestamp(timestamp / 1e3)
+        alle_zalen = Zaal.objects.all()
+        gekozen_zaal = None
+        for zaal in alle_zalen:
+            if zaal.is_vrij_op_datum(date):
+                gekozen_zaal = zaal
+                break
+        return render(request, 'reservatie_open_cv/loading.html', {'gekozen_zaal': gekozen_zaal,
+                                                                   'datum': date})
+    if request.method == "GET":
         return render(request, 'reservatie_open_cv/loading.html')
-    else:
-        return render(request, 'reservatie_open_cv/noRooms.html')
 
 
 def confirmation(request):
@@ -46,12 +44,11 @@ def confirmation(request):
     room = file.read()
     file.close()
 
+
     #TODO hier nog zaal definitief boeken: via  + mailen
     mailAddress = 'test@hotmail.com'   #hier eigenlijk vanuit persoon halen
     date = str(datetime.now())
     call(['bash', 'SendMail.sh', mailAddress, name, date, room])
-
-
 
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room})
 
@@ -74,9 +71,9 @@ def noPerson(request):
 @csrf_exempt
 def camerafunction(request):
     # do something with the your data
-    #datacam = camera.testfunctie()
+    # datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
-    #datacam = face_detection.take_picture()
+    # datacam = face_detection.take_picture()
     datacam = camera.testfunctie()
     return JsonResponse(datacam)
 
@@ -105,4 +102,3 @@ def facerec(request):
     file.write(name)
     file.close()
     return JsonResponse(ret)
-
