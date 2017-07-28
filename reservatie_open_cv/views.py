@@ -6,10 +6,14 @@ import camera
 from datetime import datetime
 from subprocess import call
 from .models import Zaal
+<<<<<<< HEAD
 import recognize
 import face_detection
 import json
 from django.http import HttpResponse
+=======
+
+>>>>>>> 0a1f5fecc65aaae0256225dd49b45d25dc7f3a62
 
 def index(request):
 
