@@ -1,11 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-import camera
-import check
-import recognize
-import face_detection
 from datetime import datetime
+from .models import Zaal
+
 
 def index(request):
     return render(request, 'reservatie_open_cv/index.html')
@@ -15,8 +13,10 @@ def data(request):
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/data.html')
     if request.method == "POST":
-        time_data = request.POST.get('date_value')
-        return render(request, 'reservatie_open_cv/loading.html', {'selected_date': time_data})
+        timestamp = request.POST.get('date_value')
+        date = datetime.fromtimestamp(timestamp / 1e3)
+        print("date is: " + str(date))
+        return render(request, 'reservatie_open_cv/loading.html', {'selected_date': date})
     return render(request, 'reservatie_open_cv/data.html')
 
 
@@ -24,6 +24,8 @@ def loading(request):
     # checking if there is some space left.
     # yes: going to loading screen
     # no: return to index with alert message that all spaces are already booked on that day
+    zaal = Zaal.objects.first()
+
     if check.searchSpace(0):
         return render(request, 'reservatie_open_cv/loading.html')
     else:
@@ -34,7 +36,7 @@ def confirmation(request):
     file = open("founded.txt", "r")
     name = file.read()
 
-    #TODO hier nog de zaal dan definitief boeken + de zaal ook tonen!
+    # TODO hier nog de zaal dan definitief boeken + de zaal ook tonen!
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name})
 
 
@@ -56,10 +58,10 @@ def noPerson(request):
 @csrf_exempt
 def camerafunction(request):
     # do something with the your data
-    #datacam = camera.testfunctie()
+    # datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
-    #datacam = face_detection.take_picture()
-    datacam = {'Time': str(datetime.now()), 'Success': True, 'Coords': (6,5,4,3)}
+    # datacam = face_detection.take_picture()
+    datacam = {'Time': str(datetime.now()), 'Success': True, 'Coords': (6, 5, 4, 3)}
     return JsonResponse(datacam)
 
 
@@ -83,4 +85,3 @@ def facerec(request):
     #     return JsonResponse(ret)
     ret = {'naam': 'Jorg'}
     return JsonResponse(ret)
-

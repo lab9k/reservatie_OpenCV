@@ -9,8 +9,9 @@ app.controller('dateTimeCtrl', function ($scope) {
 
     ctrl.updateDate = function (newdate) {
         newdate.setHours(newdate.getHours() + 2);
-        var date_json = newdate.toJSON();
-        $('#date_value').val(JSON.stringify(date_json));
+        var time = newdate.getTime();
+        console.log(time);
+        $('#date_value').val(time.toString());
     };
 });
 

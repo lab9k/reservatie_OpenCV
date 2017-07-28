@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -16,6 +18,12 @@ class Zaal(models.Model):
     def __str__(self):
         return self.locatie + " : " + self.naam
 
+    def is_vrij_op_datum(self, datum):
+        # type: (datetime) -> bool
+        if datum > self.reservatie.date:
+            return True
+        return False
+
 
 class Reservatie(models.Model):
     """
@@ -31,11 +39,7 @@ class Reservatie(models.Model):
     # date and time the reservation was last updated
     updated = models.DateTimeField(auto_now=True)
     # room the reservation will be held in
-    for_zaal = models.OneToOneField(
-        Zaal,
-        on_delete=models.CASCADE,
-        blank=False
-    )
+    for_zaal = models.ForeignKey(Zaal, on_delete=models.CASCADE, related_name='reservaties')
 
     def __str__(self):
         return "Reservatie: " + str(self.date) + " door user: " + str(self.user)
