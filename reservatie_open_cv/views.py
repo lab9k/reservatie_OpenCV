@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import camera
 from datetime import datetime
 from subprocess import call
-from .models import Zaal
+from .models import Zaal, User
 import recognize
 import face_detection
 import json
@@ -106,7 +106,7 @@ def facerec(request):
         ret = {'naam': name}
         print(request.POST)
 
-        mailaddress = 'wiemejana@hotmail.com'
+        mailaddress = User.objects.filter(first_name=name).first().email
         response = JsonResponse(ret)
         response.set_cookie(key='naam', value=name)
         response.set_cookie(key='mail', value=mailaddress)
