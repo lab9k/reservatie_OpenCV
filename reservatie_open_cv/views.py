@@ -8,15 +8,15 @@ from subprocess import call
 from .models import Zaal
 import recognize
 import face_detection
-
+import json
+from django.http import HttpResponse
 
 def index(request):
+
     return render(request, 'reservatie_open_cv/index.html')
 
 
 def data(request):
-    if request.method == "GET":
-        return render(request, 'reservatie_open_cv/data.html')
     return render(request, 'reservatie_open_cv/data.html')
 
 
@@ -30,27 +30,44 @@ def loading(request):
             if zaal.is_vrij_op_datum(date):
                 gekozen_zaal = zaal
                 break
-        return render(request, 'reservatie_open_cv/loading.html', {'gekozen_zaal': gekozen_zaal,
-                                                                   'datum': date})
+        response = render(request, 'reservatie_open_cv/loading.html')
+        response.set_cookie(key='gekozen_zaal', value=gekozen_zaal)
+        response.set_cookie(key='datum', value=date)
+        return response
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/loading.html')
 
 
 def confirmation(request):
-    file = open("founded.txt", "r")
-    name = file.read()
+    date = request.COOKIES.get('datum')
+    room = request.COOKIES.get('gekozen_zaal')
+    name = request.COOKIES.get('naam')
+    mail = request.COOKIES.get('mail')
+    # file = open("founded.txt", "r")
+    # name = file.read()
+    #
+    # file = open("freeRoom.txt", "r")
+    # room = file.read()
+    # file.close()
 
-    file = open("freeRoom.txt", "r")
-    room = file.read()
-    file.close()
+    return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room, 'date': date})
 
 
-    #TODO hier nog zaal definitief boeken: via  + mailen
-    mailAddress = 'test@hotmail.com'   #hier eigenlijk vanuit persoon halen
-    date = str(datetime.now())
-    call(['bash', 'SendMail.sh', mailAddress, name, date, room])
+@csrf_exempt
+def accept(request):
+    #gebruiker accepteerde het voorstel dus moet nu gemaild en geboekt worden
 
-    return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room})
+    # TODO hier nog zaal definitief boeken + mailen
+    mailAddress = request.COOKIES.get('mail')
+    #    call(['bash', 'SendMail.sh', mailAddress, name, date, room])
+
+    response = render(request, 'reservatie_open_cv/index.html')
+    response.delete_cookie('datum')
+    response.delete_cookie('gekozen_zaal')
+    response.delete_cookie('naam')
+    response.delete_cookie('mail')
+
+    return response
 
 
 @csrf_exempt
@@ -96,9 +113,16 @@ def facerec(request):
     #     file.write(name)
     #     file.close()
     #     return JsonResponse(ret)
+
+
+    # hier dus van bij de persoon die FR teruggeeft ook het mailadres instellen in de cookie
     name = 'Jorg'
+    mailaddress = 'test@hotmail.com'
     ret = {'naam': name}
-    file = open("founded.txt", "w")
-    file.write(name)
-    file.close()
-    return JsonResponse(ret)
+    # file = open("founded.txt", "w")
+    # file.write(name)
+    # file.close()
+    response = JsonResponse(ret)
+    response.set_cookie(key='naam', value=name)
+    response.set_cookie(key='mail', value=mailaddress)
+    return response

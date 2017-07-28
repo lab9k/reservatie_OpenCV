@@ -21,12 +21,16 @@
     top: 13px;">
             <div class="card">
                 <div class="card-image"><img id= "personImg" src="https://www.equifax.com.au/sites/default/files/styles/image_1119x999/public/field/image/identity-watch-identity-theft_0.jpg?itok=TKmb0wNq"> <span class="card-title">Bevestig uw identiteit.</span> <a
-                        href="{% url 'main:index' %}" class="btn-floating btn-large halfway-fab waves-effect waves-light green"><i
+                        href="{% url 'main:accept' %}" class="btn-floating btn-large halfway-fab waves-effect waves-light green"><i
                         class="material-icons">check</i></a></div>
                 <div class="card-content">
-                    <p class="left-align" style="font-size: 2em; word-spacing: 30px;">{{ name }}  Zaal:{{ room }}
+                    <p class="left-align" style="font-size: 1.5em;">Naam: {{ name }}
                     </p>
-                    <a class="waves-effect waves-teal" href="{% url 'main:loading' %}">Dit klopt niet, probeer opnieuw.</a>
+                    <p class="left-align" style="font-size: 1em;">Datum: {{ date }}
+                    </p>
+                    <p class="left-align" style="font-size: 1em;">Zaal: {{ room }}
+                    </p>
+                    <a class="waves-effect waves-teal" href="{% url 'main:data' %}">Dit klopt niet, probeer opnieuw.</a>
                 </div>
             </div>
         </div>
