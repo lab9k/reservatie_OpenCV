@@ -119,7 +119,7 @@
                     {% csrf_token %}
                     <input id="date_value" name="date_value" type="hidden">
                     <div class="buttons-container">
-                        <div class="cancel-button"><a class="waves-effect waves-teal btn-flat">Cancel</a></div>
+                        <div class="cancel-button"><a href="{% url 'main:data' %}" class="waves-effect waves-teal btn-flat">Cancel</a></div>
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
