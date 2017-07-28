@@ -6,7 +6,6 @@ $.ajax({
         //result is something like : {success: true, image: img}
         if (dataCam.Success === "True") {
             //photo has been made
-            alert(JSON.stringify(dataCam));
             document.getElementById("textCam").innerHTML = "De foto werd genomen. We zoeken naar uw gegevens.";
             $.ajax({
                 type: "post",

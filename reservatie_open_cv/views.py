@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from datetime import datetime
-from .models import Zaal
+import camera
+import check
+import recognize
+import face_detection
 
 
 def index(request):
@@ -13,10 +15,9 @@ def data(request):
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/data.html')
     if request.method == "POST":
-        timestamp = request.POST.get('date_value')
-        date = datetime.fromtimestamp(timestamp / 1e3)
-        print("date is: " + str(date))
-        return render(request, 'reservatie_open_cv/loading.html', {'selected_date': date})
+        time_data = request.POST.get('date_value')
+
+        return render(request, 'reservatie_open_cv/loading.html', {'selected_date': time_data})
     return render(request, 'reservatie_open_cv/data.html')
 
 
@@ -24,9 +25,12 @@ def loading(request):
     # checking if there is some space left.
     # yes: going to loading screen
     # no: return to index with alert message that all spaces are already booked on that day
-    zaal = Zaal.objects.first()
-
-    if check.searchSpace(0):
+    # TODO: ophalen uit de model en checken of er een zaal is of niet
+    freeroomname = "D1"
+    file = open("freeRoom.txt", "w")
+    file.write(freeroomname)
+    file.close()
+    if freeroomname:
         return render(request, 'reservatie_open_cv/loading.html')
     else:
         return render(request, 'reservatie_open_cv/noRooms.html')
@@ -36,8 +40,12 @@ def confirmation(request):
     file = open("founded.txt", "r")
     name = file.read()
 
-    # TODO hier nog de zaal dan definitief boeken + de zaal ook tonen!
-    return render(request, 'reservatie_open_cv/confirmation.html', {'name': name})
+    file = open("freeRoom.txt", "r")
+    room = file.read()
+    file.close()
+
+    #TODO hier nog zaal definitief boeken: via database
+    return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room})
 
 
 @csrf_exempt
@@ -58,10 +66,10 @@ def noPerson(request):
 @csrf_exempt
 def camerafunction(request):
     # do something with the your data
-    # datacam = camera.testfunctie()
+    #datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
-    # datacam = face_detection.take_picture()
-    datacam = {'Time': str(datetime.now()), 'Success': True, 'Coords': (6, 5, 4, 3)}
+    #datacam = face_detection.take_picture()
+    datacam = camera.testfunctie()
     return JsonResponse(datacam)
 
 
@@ -83,5 +91,10 @@ def facerec(request):
     #     file.write(name)
     #     file.close()
     #     return JsonResponse(ret)
-    ret = {'naam': 'Jorg'}
+    name = 'Jorg'
+    ret = {'naam': name}
+    file = open("founded.txt", "w")
+    file.write(name)
+    file.close()
     return JsonResponse(ret)
+
