@@ -13,7 +13,6 @@ from django.http import HttpResponse
 
 
 def index(request):
-
     return render(request, 'reservatie_open_cv/index.html')
 
 
@@ -56,7 +55,7 @@ def confirmation(request):
 
 @csrf_exempt
 def accept(request):
-    #gebruiker accepteerde het voorstel dus moet nu gemaild en geboekt worden
+    # gebruiker accepteerde het voorstel dus moet nu gemaild en geboekt worden
 
     # TODO hier nog zaal definitief boeken + mailen
     mailAddress = request.COOKIES.get('mail')
@@ -114,7 +113,6 @@ def facerec(request):
     #     file.write(name)
     #     file.close()
     #     return JsonResponse(ret)
-
 
     # hier dus van bij de persoon die FR teruggeeft ook het mailadres instellen in de cookie
     name = 'Jorg'
