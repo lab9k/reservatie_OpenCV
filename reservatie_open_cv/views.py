@@ -6,8 +6,6 @@ import camera
 from datetime import datetime
 from subprocess import call
 from .models import Zaal
-import recognize
-import face_detection
 
 
 def index(request):
