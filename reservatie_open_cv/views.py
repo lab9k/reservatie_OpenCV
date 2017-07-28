@@ -43,7 +43,6 @@ def confirmation(request):
     date = request.COOKIES.get('datum')
     room = request.COOKIES.get('gekozen_zaal')
     name = request.COOKIES.get('naam')
-    mail = request.COOKIES.get('mail')
 
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room, 'date': date})
 
@@ -54,8 +53,11 @@ def accept(request):
 
     # TODO hier nog zaal definitief boeken + mailen
     mailAddress = request.COOKIES.get('mail')
-
-    mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "Tralala")
+    date = request.COOKIES.get('datum')
+    room = request.COOKIES.get('gekozen_zaal')
+    name = request.COOKIES.get('naam')
+    text = 'Beste ' + name +  ',\nVolgende zaal: ' + room + 'werd voor u gereserveerd op ' + date + '.\n\nMet vriendelijke groeten,\nLab9000'
+    mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "")
 
     zaal = request.COOKIES.get('gekozen_zaal')
     cookie_datum = request.COOKIES.get('datum')
