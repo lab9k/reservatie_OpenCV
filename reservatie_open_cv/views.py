@@ -5,7 +5,7 @@ import camera
 import check
 import recognize
 import face_detection
-
+from datetime import datetime
 
 def index(request):
     return render(request, 'reservatie_open_cv/index.html')
@@ -58,8 +58,8 @@ def camerafunction(request):
     # do something with the your data
     #datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
-    datacam = face_detection.take_picture()
-
+    #datacam = face_detection.take_picture()
+    datacam = {'Time': str(datetime.now()), 'Success': True, 'Coords': (6,5,4,3)}
     return JsonResponse(datacam)
 
 
@@ -67,18 +67,20 @@ def camerafunction(request):
 def facerec(request):
     # do something with the your data
 
-    x = request.POST.get('Coords[x]')
-    y = request.POST.get('Coords[y]')
-    h = request.POST.get('Coords[h]')
-    w = request.POST.get('Coords[w]')
-    name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
-    if(name == "Unknown"):
-        return render(request, 'reservatie_open_cv/noPerson.html')
-    else:
-        ret = {'naam': name}
-        print(request.POST)
-        file = open("founded.txt", "w")
-        file.write(name)
-        file.close()
-        return JsonResponse(ret)
+    # x = request.POST.get('Coords[x]')
+    # y = request.POST.get('Coords[y]')
+    # h = request.POST.get('Coords[h]')
+    # w = request.POST.get('Coords[w]')
+    # name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
+    # if(name == "Unknown"):
+    #     return render(request, 'reservatie_open_cv/noPerson.html')
+    # else:
+    #     ret = {'naam': name}
+    #     print(request.POST)
+    #     file = open("founded.txt", "w")
+    #     file.write(name)
+    #     file.close()
+    #     return JsonResponse(ret)
+    ret = {'naam': 'Jorg'}
+    return JsonResponse(ret)
 
