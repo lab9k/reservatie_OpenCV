@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{% static 'reservatie_open_cv/css/materialize.min.css' %}"
+          media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> </head>
+
+<body class="amber">
+     <main class="container valign-wrapper" style="height: 100vh;">
+        <div class="row">
+        <div class="col s13 m7" style="margin: 0 auto; float: none; position: relative;
+    top: 13px;">
+            <div class="card">
+                <div class="card-image"><img src="{% static 'reservatie_open_cv/img/calendar.PNG' %}">
+                       <a href="{% url 'main:data' %}" class="btn-floating btn-large halfway-fab waves-effect waves-light orange"><i
+                        class="material-icons">check</i></a></div>
+                <div class="card-content">
+                    <p class="left-align" style="font-size: 1em;">Op het door u geselecteerde moment is geen zaal meer beschikbaar, gelieve een ander tijdstip te kiezen.
+                    </p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </main>
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <script type="text/javascript" src="{% static 'reservatie_open_cv/js/materialize.min.js' %}"></script>
+</body>
+
+</html>
