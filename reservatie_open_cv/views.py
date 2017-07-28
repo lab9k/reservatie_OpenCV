@@ -9,6 +9,7 @@ from .models import Zaal
 import recognize
 import face_detection
 import json
+import mailgun
 from django.http import HttpResponse
 
 
@@ -43,12 +44,6 @@ def confirmation(request):
     room = request.COOKIES.get('gekozen_zaal')
     name = request.COOKIES.get('naam')
     mail = request.COOKIES.get('mail')
-    # file = open("founded.txt", "r")
-    # name = file.read()
-    #
-    # file = open("freeRoom.txt", "r")
-    # room = file.read()
-    # file.close()
 
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room, 'date': date})
 
@@ -59,7 +54,9 @@ def accept(request):
 
     # TODO hier nog zaal definitief boeken + mailen
     mailAddress = request.COOKIES.get('mail')
-    #    call(['bash', 'SendMail.sh', mailAddress, name, date, room])
+
+    mailgun.send_async_message('postmaster@mail.lab9k.gent',mailAddress,'zaalboeking',"Tralala")
+
 
     response = render(request, 'reservatie_open_cv/index.html')
     response.delete_cookie('datum')
@@ -90,8 +87,8 @@ def camerafunction(request):
     # do something with the your data
     # datacam = camera.testfunctie()
     # {Time:string,success:string,(int,int,int,int)}
-    # datacam = face_detection.take_picture()
-    datacam = camera.testfunctie()
+    datacam = face_detection.take_picture()
+    #datacam = camera.testfunctie()
     return JsonResponse(datacam)
 
 
@@ -99,29 +96,26 @@ def camerafunction(request):
 def facerec(request):
     # do something with the your data
 
-    # x = request.POST.get('Coords[x]')
-    # y = request.POST.get('Coords[y]')
-    # h = request.POST.get('Coords[h]')
-    # w = request.POST.get('Coords[w]')
-    # name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
-    # if(name == "Unknown"):
-    #     return render(request, 'reservatie_open_cv/noPerson.html')
-    # else:
-    #     ret = {'naam': name}
-    #     print(request.POST)
-    #     file = open("founded.txt", "w")
-    #     file.write(name)
-    #     file.close()
-    #     return JsonResponse(ret)
+    x = request.POST.get('Coords[x]')
+    y = request.POST.get('Coords[y]')
+    h = request.POST.get('Coords[h]')
+    w = request.POST.get('Coords[w]')
+    name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
+    if(name == "Unknown"):
+        return render(request, 'reservatie_open_cv/noPerson.html')
+    else:
+        ret = {'naam': name}
+        print(request.POST)
 
-    # hier dus van bij de persoon die FR teruggeeft ook het mailadres instellen in de cookie
-    name = 'Jorg'
-    mailaddress = 'test@hotmail.com'
-    ret = {'naam': name}
-    # file = open("founded.txt", "w")
-    # file.write(name)
-    # file.close()
-    response = JsonResponse(ret)
-    response.set_cookie(key='naam', value=name)
-    response.set_cookie(key='mail', value=mailaddress)
-    return response
+        mailaddress = 'wiemejana@hotmail.com'
+        response = JsonResponse(ret)
+        response.set_cookie(key='naam', value=name)
+        response.set_cookie(key='mail', value=mailaddress)
+        return response
+
+
+
+
+
+
+
