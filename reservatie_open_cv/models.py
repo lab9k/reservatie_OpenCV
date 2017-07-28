@@ -19,10 +19,14 @@ class Zaal(models.Model):
         return self.locatie + " : " + self.naam
 
     def is_vrij_op_datum(self, datum):
-        # type: (datetime) -> bool
-        if datum > self.reservatie.date:
-            return True
-        return False
+        """
+
+        :type datum: datetime
+        """
+        reservatie = self.reservaties.filter(date=datum.date())
+        if reservatie:
+            return False
+        return True
 
 
 class Reservatie(models.Model):
