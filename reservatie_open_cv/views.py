@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import camera
+from datetime import datetime
+from subprocess import call
 import check
 import recognize
 import face_detection
@@ -44,7 +46,13 @@ def confirmation(request):
     room = file.read()
     file.close()
 
-    #TODO hier nog zaal definitief boeken: via database
+    #TODO hier nog zaal definitief boeken: via  + mailen
+    mailAddress = 'test@hotmail.com'   #hier eigenlijk vanuit persoon halen
+    date = str(datetime.now())
+    call(['bash', 'SendMail.sh', mailAddress, name, date, room])
+
+
+
     return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room})
 
 
