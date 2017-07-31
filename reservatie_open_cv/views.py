@@ -109,15 +109,17 @@ def facerec(request):
     y = request.POST.get('Coords[y]')
     h = request.POST.get('Coords[h]')
     w = request.POST.get('Coords[w]')
-    name = recognize.recon(request.POST.get('Time'), (x, y, h, w))
-    if name == "Unknown":
+    face_id = recognize.recon(request.POST.get('Time'), (x, y, h, w))
+    if face_id == "Unknown":
         return render(request, 'reservatie_open_cv/noPerson.html')
     else:
-        ret = {'naam': name}
+        # cause images in the trainer.yml needed to have an integer as id
+        face_id = int(face_id)
+        user = User.objects.filter(face_id=face_id)
+        ret = {'naam': user.first_name}
         print(request.POST)
 
-        mailaddress = User.objects.filter(first_name=name).first().email
         response = JsonResponse(ret)
-        response.set_cookie(key='naam', value=name)
-        response.set_cookie(key='mail', value=mailaddress)
+        response.set_cookie(key='naam', value=user.first_name)
+        response.set_cookie(key='mail', value=user.email)
         return response

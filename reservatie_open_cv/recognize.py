@@ -1,8 +1,7 @@
 import cv2
 import os
 from lab9k.settings import PROJECT_ROOT
-from .models import User
-
+from .models import FaceUser
 
 def recon(now, mtuple):
     # krijgen map locatie boolean en tupel met x y w h
@@ -24,9 +23,9 @@ def recon(now, mtuple):
         id_pers, conf = recognizer.predict(image[y:y + h, x:x + w])
         # aanpassen !!!!!!!!!
         if 50 < conf < 120:
-            print(User.objects.get(face_id=face_id))
-            name = User.objects.filter(first_name='Jorg').first().first_name
+            print(FaceUser.objects.get(face_id=id_pers))
+            face_id = 1
         else:
-            name = "Unknown"
-        return name
+            face_id = "Unknown"
+        return face_id
 
