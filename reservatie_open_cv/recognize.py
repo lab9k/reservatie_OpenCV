@@ -24,12 +24,9 @@ def recon(now, mtuple):
         id_pers, conf = recognizer.predict(image[y:y + h, x:x + w])
         # aanpassen !!!!!!!!!
         if 50 < conf < 120:
-            # conn = sqlite3.connect("db.sqlite3")
-            # c = conn.cursor()
-            # for per in c.execute('SELECT * FROM auth_user WHERE id=?', str(id_pers)):
-            #     name = per
-            # conn.close()
+            print(User.objects.get(face_id=face_id))
             name = User.objects.filter(first_name='Jorg').first().first_name
         else:
             name = "Unknown"
         return name
+
