@@ -15,7 +15,7 @@ class ZaalAdmin(admin.ModelAdmin):
 
 
 class FaceUserAdmin(admin.ModelAdmin):
-    fields = ('face_id', 'first_name', 'last_name', 'email', 'password')
+    fields = ('face_id', 'first_name', 'last_name', 'email')
 
 
 # registers Zaal andhis configuration ZaalAdmin in the Django-admin site
