@@ -36,6 +36,8 @@ class Reservatie(models.Model):
     """
     # user who created the reservation
     user = models.ForeignKey(User)
+    # face id of the user
+    face_id = models.IntegerField(default=9999)
     # date and time the meeting will be held
     date = models.DateTimeField(null=False, blank=False)
     # date and time the reservation was first made
