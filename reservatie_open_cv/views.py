@@ -11,6 +11,7 @@ import face_detection
 import json
 import mailgun
 from django.http import HttpResponse
+import time
 
 
 def index(request):
@@ -40,7 +41,7 @@ def loading(request):
 
 
 def confirmation(request):
-    date = request.COOKIES.get('datum')
+    date = datetime.fromtimestamp(request.COOKIES.get('datum') / 1e3)
     room = request.COOKIES.get('gekozen_zaal')
     name = request.COOKIES.get('naam')
 
@@ -60,8 +61,7 @@ def accept(request):
     mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "")
 
     zaal = request.COOKIES.get('gekozen_zaal')
-    cookie_datum = request.COOKIES.get('datum')
-    date = datetime.fromtimestamp(cookie_datum / 1e3)
+    date = datetime.fromtimestamp(request.COOKIES.get('datum') / 1e3)
 
     db_zaal = Zaal.objects.filter(naam=zaal).first()
     reservatie = Reservatie(zaal=db_zaal, date=date)
