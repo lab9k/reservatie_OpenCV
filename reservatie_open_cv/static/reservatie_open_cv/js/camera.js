@@ -2,7 +2,7 @@ $.ajax({
     type: "POST",
     url: "/camera/",
     success: function (dataCam) {
-        //ajax call --> calls the camera.py script to take a picture and search a face in it
+        //ajax call --> calls the face_detection.py script to take a picture and search a face in it
         //result is something like : {success: true, image: img}
         if (dataCam.Success === "True") {
             //photo has been made

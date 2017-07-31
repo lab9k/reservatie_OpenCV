@@ -14,14 +14,19 @@ import time
 
 
 def index(request):
+    # open the index page
     return render(request, 'reservatie_open_cv/index.html')
 
 
 def data(request):
+    # open the data page
     return render(request, 'reservatie_open_cv/data.html')
 
 
 def loading(request):
+    # this methode check get called twice,
+    # first time to check if there is a room free if not back to time and date
+    # second time to proceed(so free room) and go to the imagetaker
     if request.method == "POST":
         timestamp = float(request.POST.get('date_value'))
         date = datetime.fromtimestamp(timestamp / 1e3)
@@ -37,22 +42,24 @@ def loading(request):
         response.set_cookie(key='gekozen_zaal', value=gekozen_zaal.naam)
         response.set_cookie(key='datum', value=timestamp)
         return response
+    # TODO: mag misschien weg herbekijken
     if request.method == "GET":
         return render(request, 'reservatie_open_cv/loading.html')
 
 
 def confirmation(request):
+    # person data is alright now all we need is his confirmation
+    # send page where we display the data and some buttons
     date = datetime.fromtimestamp(float(request.COOKIES.get('datum')) / 1e3)
     room = request.COOKIES.get('gekozen_zaal')
     name = request.COOKIES.get('naam')
-
     return render(request, 'reservatie_open_cv/confirmation.html',
                   {'name': name, 'room': room, 'date': date})
 
 
 @csrf_exempt
 def accept(request):
-    # gebruiker accepteerde het voorstel dus moet nu gemaild en geboekt worden
+    # user confirmed so mail and save the reservation
 
     # TODO hier + mailen
     mailAddress = request.COOKIES.get('mail')
@@ -83,16 +90,19 @@ def accept(request):
 
 @csrf_exempt
 def error(request):
+    # get called when a error occurs or unable to detect face
     return render(request, 'reservatie_open_cv/error.html')
 
 
 @csrf_exempt
 def noRoom(request):
+    # no space available
     return render(request, 'reservatie_open_cv/noRooms.html')
 
 
 @csrf_exempt
 def noPerson(request):
+    # person not recognized
     return render(request, 'reservatie_open_cv/noPerson.html')
 
 
@@ -105,7 +115,7 @@ def camerafunction(request):
 
 @csrf_exempt
 def facerec(request):
-    # turn out their is a face on the image so we have to detect whose face
+    # turn out their is a face on the image, so we have to detect whose face
     # it is
 
     x = request.POST.get('Coords[x]')
@@ -122,7 +132,7 @@ def facerec(request):
         response.set_cookie(key='mail', value="None")
         return response
     else:
-        # cause images in the trainer.yml needed to have an integer as id
+        # cause images in the trainer.yml need an integer as id
         face_id = int(face_id)
         user = FaceUser.objects.get(face_id=face_id)
         ret = {'naam': user.first_name}
