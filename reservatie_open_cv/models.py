@@ -5,6 +5,9 @@ from django.db import models
 
 
 class FaceUser(User):
+    """
+    built-in Django user extended with the ID from openCV.
+    """
     face_id = models.IntegerField(blank=False, default=9999999, db_index=True, unique=True)
 
     def __str__(self):
