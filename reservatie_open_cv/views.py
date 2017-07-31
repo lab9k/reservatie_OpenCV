@@ -24,7 +24,6 @@ def data(request):
 def loading(request):
     if request.method == "POST":
         timestamp = float(request.POST.get('date_value'))
-        print("print in loading: " + str(timestamp))
         date = datetime.fromtimestamp(timestamp / 1e3)
         alle_zalen = Zaal.objects.all()
         gekozen_zaal = None
@@ -64,14 +63,11 @@ def accept(request):
     mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "")
 
     zaal = request.COOKIES.get('gekozen_zaal')
-    print('zaal uit cookies: ' + str(zaal))
     date = datetime.fromtimestamp(float(request.COOKIES.get('datum')) / 1e3)
 
     db_zaal = Zaal.objects.filter(naam=zaal).first()
     db_user = FaceUser.objects.filter(first_name=name).first()
-    print(str(db_zaal))
     reservatie = Reservatie(for_zaal=db_zaal, date=date, face_user=db_user)
-    print("reservatie: " + str(reservatie))
     reservatie.save()
 
     response = render(request, 'reservatie_open_cv/index.html')
@@ -124,7 +120,6 @@ def facerec(request):
         face_id = int(face_id)
         user = FaceUser.objects.get(face_id=face_id)
         ret = {'naam': user.first_name}
-        print(request.POST)
 
         response = JsonResponse(ret)
         response.set_cookie(key='naam', value=user.first_name)

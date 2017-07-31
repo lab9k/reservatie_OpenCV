@@ -9,13 +9,12 @@ from picamera import PiCamera
 camera = PiCamera()
 
 
-# neemt een foto
 def take_picture():
     # vaste tijd nemen voor folder met foto's
     now = datetime.now()
     # aanmaken van die folder
     os.makedirs(os.path.join(PROJECT_ROOT, "IMAGES/{}".format(now)))
-    # aanmaken van camera, resolutie instellen en de mensen 2 seconden geven
+    # resolutie instellen en de mensen 2 seconden geven
     camera.resolution = (1280, 960)
     sleep(2)
     # neemt foto sla die op in de folder
@@ -36,7 +35,7 @@ def take_picture():
     # naar de info
     if len(faces) != 0:
         # om het zo snel mogelijk te maken stuur ik de data van het gezicht
-        # door aangezien dit algoritme op 320x240 3 sec nodig heeft
+        # door aangezien dit algoritme op 320x240 2 sec nodig heeft
         return {'Time': str(now), 'Success': 'True', 'Coords': {'x': faces[0].item(0),
                                                                 'y': faces[0].item(1),
                                                                 'h': faces[0].item(2),
