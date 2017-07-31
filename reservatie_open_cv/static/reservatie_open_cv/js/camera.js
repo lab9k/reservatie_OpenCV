@@ -11,8 +11,11 @@ $.ajax({
                 type: "post",
                 url: "/facerec/",
                 data: dataCam,
-                success: function (dataFR) {
-                    window.location.assign("/confirmation/");
+                success: function (dataFr) {
+                    if (dataFr.naam === "None")
+                        window.location.assign('/noPerson');
+                    else
+                        window.location.assign("/confirmation/");
                 }
             });
 

@@ -15,10 +15,6 @@ class ZaalAdmin(admin.ModelAdmin):
 
 
 class FaceUserAdmin(admin.ModelAdmin):
-    """
-       Configuration to display 'FaceUser' models in the Django admin site.
-       """
-    # Fields to be used in the form for creating 'FaceUser' objects
     fields = ('face_id', 'first_name', 'last_name', 'email')
 
 

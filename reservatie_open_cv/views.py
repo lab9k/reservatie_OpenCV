@@ -46,7 +46,8 @@ def confirmation(request):
     room = request.COOKIES.get('gekozen_zaal')
     name = request.COOKIES.get('naam')
 
-    return render(request, 'reservatie_open_cv/confirmation.html', {'name': name, 'room': room, 'date': date})
+    return render(request, 'reservatie_open_cv/confirmation.html',
+                  {'name': name, 'room': room, 'date': date})
 
 
 @csrf_exempt
@@ -60,7 +61,8 @@ def accept(request):
     name = request.COOKIES.get('naam')
 
     text = 'Beste ' + name + ',\nVolgende zaal: ' + room + 'werd voor u gereserveerd op ' + date + '.\n\nMet vriendelijke groeten,\nLab9000'
-    mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "")
+    mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress,
+                               'zaalboeking', "")
 
     zaal = request.COOKIES.get('gekozen_zaal')
     date = datetime.fromtimestamp(float(request.COOKIES.get('datum')) / 1e3)
@@ -96,25 +98,29 @@ def noPerson(request):
 
 @csrf_exempt
 def camerafunction(request):
-    # do something with the your data
-    # datacam = camera.testfunctie()
-    # {Time:string,success:string,(int,int,int,int)}
+    # call methode for detecting face
     datacam = face_detection.take_picture()
-    # datacam = camera.testfunctie()
     return JsonResponse(datacam)
 
 
 @csrf_exempt
 def facerec(request):
-    # do something with the your data
+    # turn out their is a face on the image so we have to detect whose face
+    # it is
 
     x = request.POST.get('Coords[x]')
     y = request.POST.get('Coords[y]')
     h = request.POST.get('Coords[h]')
     w = request.POST.get('Coords[w]')
     face_id = recognize.recon(request.POST.get('Time'), (x, y, h, w))
+    # if we detect one we can proceed else persoon not found
     if face_id == "Unknown":
-        return render(request, 'reservatie_open_cv/noPerson.html')
+        ret = {'naam': "None"}
+
+        response = JsonResponse(ret)
+        response.set_cookie(key='naam', value="None")
+        response.set_cookie(key='mail', value="None")
+        return response
     else:
         # cause images in the trainer.yml needed to have an integer as id
         face_id = int(face_id)
