@@ -34,14 +34,11 @@ def take_picture():
     faces = face_cascade.detectMultiScale(image, 1.1, 5)
     # als er een gezicht gedetecteert word dan kunnen we zoeken zo niet terug
     # naar de info
-    legetupel = ()
     if len(faces) != 0:
         # om het zo snel mogelijk te maken stuur ik de data van het gezicht
         # door aangezien dit algoritme op 320x240 3 sec nodig heeft
-        data = {'Time': str(now), 'Success': 'True', 'Coords': {'x': faces[0].item(0),
+        return {'Time': str(now), 'Success': 'True', 'Coords': {'x': faces[0].item(0),
                                                                 'y': faces[0].item(1),
                                                                 'h': faces[0].item(2),
                                                                 'w': faces[0].item(3)}}
-        return data
-    mdict = {'Time': str(now), 'Success': 'False', 'Coord': ()}
-    return mdict
+    return {'Time': str(now), 'Success': 'False', 'Coord': ()}
