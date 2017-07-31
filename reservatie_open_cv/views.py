@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import camera
 from datetime import datetime
 from subprocess import call
-from .models import Zaal, User, Reservatie
+from .models import Zaal, User, Reservatie, FaceUser
 import recognize
 import face_detection
 import json
@@ -115,7 +115,7 @@ def facerec(request):
     else:
         # cause images in the trainer.yml needed to have an integer as id
         face_id = int(face_id)
-        user = User.objects.filter(face_id=face_id)
+        user = FaceUser.objects.get(face_id=face_id)
         ret = {'naam': user.first_name}
         print(request.POST)
 

@@ -23,7 +23,6 @@ def recon(now, mtuple):
         id_pers, conf = recognizer.predict(image[y:y + h, x:x + w])
         # aanpassen !!!!!!!!!
         if 50 < conf < 120:
-            print(FaceUser.objects.get(face_id=id_pers))
             face_id = 1
         else:
             face_id = "Unknown"
