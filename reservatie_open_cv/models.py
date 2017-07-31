@@ -53,4 +53,4 @@ class Reservatie(models.Model):
     for_zaal = models.ForeignKey(Zaal, on_delete=models.CASCADE, related_name='reservaties')
 
     def __str__(self):
-        return "Reservatie: " + str(self.date) + " door user: " + str(self.user)
+        return "Reservatie: " + str(self.date) + " door user: " + str(self.face_user)

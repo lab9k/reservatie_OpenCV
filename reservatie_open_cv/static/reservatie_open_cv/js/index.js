@@ -8,7 +8,7 @@ app.controller('dateTimeCtrl', function ($scope) {
     ctrl.selected_date.setMinutes(30);
 
     ctrl.updateDate = function (newdate) {
-        newdate.setHours(newdate.getHours() + 2);
+        //newdate.setHours(newdate.getHours() + 2);
         var time = newdate.getTime();
         console.log(time);
         $('#date_value').val(time.toString());

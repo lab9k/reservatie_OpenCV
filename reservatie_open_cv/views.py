@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -25,6 +24,7 @@ def data(request):
 def loading(request):
     if request.method == "POST":
         timestamp = float(request.POST.get('date_value'))
+        print("print in loading: " + str(timestamp))
         date = datetime.fromtimestamp(timestamp / 1e3)
         alle_zalen = Zaal.objects.all()
         gekozen_zaal = None
@@ -32,8 +32,10 @@ def loading(request):
             if zaal.is_vrij_op_datum(date):
                 gekozen_zaal = zaal
                 break
+        if gekozen_zaal is None:
+            raise ReferenceError("Geen zaal gevonden!")
         response = render(request, 'reservatie_open_cv/loading.html')
-        response.set_cookie(key='gekozen_zaal', value=gekozen_zaal)
+        response.set_cookie(key='gekozen_zaal', value=gekozen_zaal.naam)
         response.set_cookie(key='datum', value=timestamp)
         return response
     if request.method == "GET":
@@ -41,7 +43,7 @@ def loading(request):
 
 
 def confirmation(request):
-    date = datetime.fromtimestamp(request.COOKIES.get('datum') / 1e3)
+    date = datetime.fromtimestamp(float(request.COOKIES.get('datum')) / 1e3)
     room = request.COOKIES.get('gekozen_zaal')
     name = request.COOKIES.get('naam')
 
@@ -52,19 +54,24 @@ def confirmation(request):
 def accept(request):
     # gebruiker accepteerde het voorstel dus moet nu gemaild en geboekt worden
 
-    # TODO hier nog zaal definitief boeken + mailen
+    # TODO hier + mailen
     mailAddress = request.COOKIES.get('mail')
     date = request.COOKIES.get('datum')
     room = request.COOKIES.get('gekozen_zaal')
     name = request.COOKIES.get('naam')
-    text = 'Beste ' + name +  ',\nVolgende zaal: ' + room + 'werd voor u gereserveerd op ' + date + '.\n\nMet vriendelijke groeten,\nLab9000'
+
+    text = 'Beste ' + name + ',\nVolgende zaal: ' + room + 'werd voor u gereserveerd op ' + date + '.\n\nMet vriendelijke groeten,\nLab9000'
     mailgun.send_async_message('postmaster@mail.lab9k.gent', mailAddress, 'zaalboeking', "")
 
     zaal = request.COOKIES.get('gekozen_zaal')
-    date = datetime.fromtimestamp(request.COOKIES.get('datum') / 1e3)
+    print('zaal uit cookies: ' + str(zaal))
+    date = datetime.fromtimestamp(float(request.COOKIES.get('datum')) / 1e3)
 
     db_zaal = Zaal.objects.filter(naam=zaal).first()
-    reservatie = Reservatie(zaal=db_zaal, date=date)
+    db_user = FaceUser.objects.filter(first_name=name).first()
+    print(str(db_zaal))
+    reservatie = Reservatie(for_zaal=db_zaal, date=date, face_user=db_user)
+    print("reservatie: " + str(reservatie))
     reservatie.save()
 
     response = render(request, 'reservatie_open_cv/index.html')
