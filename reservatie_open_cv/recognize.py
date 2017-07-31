@@ -1,7 +1,7 @@
 import cv2
 import os
 from lab9k.settings import PROJECT_ROOT
-from .models import FaceUser
+
 
 def recon(now, mtuple):
     # krijgen map locatie boolean en tupel met x y w h
@@ -21,10 +21,8 @@ def recon(now, mtuple):
 
         image = cv2.imread(os.path.join(PROJECT_ROOT, "IMAGES/{}/gray320.jpg".format(now)), 0)
         id_pers, conf = recognizer.predict(image[y:y + h, x:x + w])
-        # aanpassen !!!!!!!!!
-        if 50 < conf < 120:
-            face_id = 1
-        else:
-            face_id = "Unknown"
-        return face_id
+        # geeft het id door zal worden opgehaald in database
+        if not 50 < conf < 120:
+            id_pers = "Unknown"
+        return id_pers
 
