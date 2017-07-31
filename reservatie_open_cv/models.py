@@ -7,6 +7,9 @@ from django.db import models
 class FaceUser(User):
     face_id = models.IntegerField(blank=False, default=9999999, db_index=True, unique=True)
 
+    def __str__(self):
+        return self.first_name + " " + self.last_name
+
 
 class Zaal(models.Model):
     """
