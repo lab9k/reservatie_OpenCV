@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+class FaceUser(User):
+    face_id = models.IntegerField(blank=False, default=9999999, db_index=True, unique=True)
+
+
 class Zaal(models.Model):
     """
     This model represents a room, which can be reserved by Users
@@ -35,9 +39,7 @@ class Reservatie(models.Model):
     And the room, where the meeting will be held.
     """
     # user who created the reservation
-    user = models.ForeignKey(User)
-    # face id of the user
-    face_id = models.IntegerField(default=9999)
+    face_user = models.ForeignKey(FaceUser)
     # date and time the meeting will be held
     date = models.DateTimeField(null=False, blank=False)
     # date and time the reservation was first made
