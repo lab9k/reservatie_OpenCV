@@ -33,7 +33,7 @@ def loading(request):
                 gekozen_zaal = zaal
                 break
         if gekozen_zaal is None:
-            raise ReferenceError("Geen zaal gevonden!")
+            return render(request, "reservatie_open_cv/noRooms.html")
         response = render(request, 'reservatie_open_cv/loading.html')
         response.set_cookie(key='gekozen_zaal', value=gekozen_zaal.naam)
         response.set_cookie(key='datum', value=timestamp)
