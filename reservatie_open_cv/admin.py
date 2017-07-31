@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Zaal
+from .models import Zaal, FaceUser
 
 
 class ZaalAdmin(admin.ModelAdmin):
@@ -14,5 +14,10 @@ class ZaalAdmin(admin.ModelAdmin):
     list_display = ('naam', 'locatie', 'aantal_plaatsen')
 
 
+class FaceUserAdmin(admin.ModelAdmin):
+    fields = ('face_id', 'first_name', 'last_name', 'email', 'password')
+
+
 # registers Zaal andhis configuration ZaalAdmin in the Django-admin site
 admin.site.register(Zaal, ZaalAdmin)
+admin.site.register(FaceUser, FaceUserAdmin)
