@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>380</x>
+      <y>360</y>
+      <w>270</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>migrations
+--
+Migrations are Django’s way of propa-
+gating changes you make to your models
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>980</x>
+      <y>230</y>
+      <w>410</w>
+      <h>290</h>
+    </coordinates>
+    <panel_attributes>Static</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1000</x>
+      <y>270</y>
+      <w>360</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>reservatie_open_cv</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1020</x>
+      <y>310</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>img</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1210</x>
+      <y>310</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>css</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1020</x>
+      <y>410</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>fonts</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1210</x>
+      <y>410</y>
+      <w>100</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>js</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>360</x>
+      <y>580</y>
+      <w>250</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>templates</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>390</x>
+      <y>620</y>
+      <w>190</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>reservatie_open_cv
+--
+All the html pages we use 
+to display the app
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>400</y>
+      <w>400</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>380.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+</diagram>
