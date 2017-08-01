@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>290</x>
+      <y>110</y>
+      <w>190</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Documentation
+--
+Files that explain the
+working of the application
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>700</x>
+      <y>100</y>
+      <w>170</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>face_Recognition
+--
+Only one file, a python 
+script to build .yml file
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>290</x>
+      <y>340</y>
+      <w>170</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lab9k
+--
+Data and script that are 
+needed for path etc.
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>690</x>
+      <y>340</y>
+      <w>200</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>reservatie_open_cv
+--
+Everything you need 
+to run the application
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>360</y>
+      <w>260</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+retrieve data</panel_attributes>
+    <additional_attributes>240.0;20.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>160</y>
+      <w>270</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Everytime you want to add a person's  
+face you have to rerun this script</panel_attributes>
+    <additional_attributes>250.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+</diagram>
