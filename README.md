@@ -2,6 +2,8 @@
 
 #### reservation system made with open-cv and Django
 
+Demo: https://www.youtube.com/watch?v=giro7kRbgkc
+
 ### how to setup
 
 * prerequisites:
